@@ -27,9 +27,23 @@ export default function Pick({ document }: PickProps) {
 
   const lastPickedItem = pickedItems[pickedItems.length - 1]
 
+  const handleRemainingItemClick = (itemId: string) => {
+    const itemToPick = remainingItems.find(item => item.id === itemId)
+    if (itemToPick) {
+      setPickedItems([...pickedItems, itemToPick])
+    }
+  }
+
+  const handlePickedItemClick = (itemId: string) => {
+    const itemToUnpick = pickedItems.find(item => item.id === itemId)
+    if (itemToUnpick) {
+      setPickedItems((pickedItems) => pickedItems.filter(item => item.id !== itemId))
+    }
+  }
+
   return (
     <div className="flex w-full h-screen max-h-screen overflow-hidden">
-      <ItemList description="Remaining Values" items={remainingItems} />
+      <ItemList onItemClick={handleRemainingItemClick} description="Remaining" items={remainingItems} />
       <div className="flex-2 p-4 text-center flex flex-col items-center justify-center">
         <Button
           onClick={handlePick}
@@ -45,7 +59,7 @@ export default function Pick({ document }: PickProps) {
           {pickedItems.length > 0 ? lastPickedItem.name : "No item picked yet"}
         </span>
       </div>
-      <ItemList description="Chosen Values" items={pickedItems} />
+      <ItemList onItemClick={handlePickedItemClick} description="Chosen" items={pickedItems} />
     </div>
   )
 }

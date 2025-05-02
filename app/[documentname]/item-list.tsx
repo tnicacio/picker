@@ -4,9 +4,10 @@ import { Item } from "../api/document/item"
 interface ItemListProps {
   description: string
   items: Item[]
+  onItemClick?: (itemId: string) => void
 }
 
-export default function ItemList({ description, items }: ItemListProps) {
+export default function ItemList({ description, items, onItemClick }: ItemListProps) {
   return (
     <div className="flex-1 p-4 ">
       <h2 className="text-lg font-semibold mb-4">{description} ({items.length})</h2>
@@ -21,7 +22,8 @@ export default function ItemList({ description, items }: ItemListProps) {
         {items.map(item => (
           <li
             key={item.id}
-            className="p-3 border rounded-lg shadow-md bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            onClick={() => onItemClick?.(item.id)}
+            className="cursor-pointer p-3 border rounded-lg shadow-md bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
           >
             {item.name}
           </li>
