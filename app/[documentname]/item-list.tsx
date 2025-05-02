@@ -1,19 +1,19 @@
 import clsx from "clsx"
 import { Item } from "../api/document/item"
 
-interface ItemListProps {
+interface ItemListProps extends React.HTMLProps<HTMLDivElement> {
   description: string
   items: Item[]
   onItemClick?: (itemId: string) => void
 }
 
-export default function ItemList({ description, items, onItemClick }: ItemListProps) {
+export default function ItemList({ description, items, onItemClick, ...rest }: ItemListProps) {
   return (
-    <div className="flex-1 p-4 ">
+    <div {...rest}>
       <h2 className="text-lg font-semibold mb-4">{description} ({items.length})</h2>
       <ul
         className={clsx(
-          "space-y-2 overflow-y-auto max-h-[calc(100vh-50px)]",
+          "space-y-2 overflow-y-auto max-h-[calc(25vh-10px)] sm:max-h-[calc(100vh-50px)]",
           items.length > 0
             ? "scrollbar-thins scrollbar-track-gray-200 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-700"
             : "scrollbar-none"

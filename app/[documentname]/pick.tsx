@@ -42,9 +42,13 @@ export default function Pick({ document }: PickProps) {
   }
 
   return (
-    <div className="flex w-full h-screen max-h-screen overflow-hidden">
-      <ItemList onItemClick={handleRemainingItemClick} description="Remaining" items={remainingItems} />
-      <div className="flex-2 p-4 text-center flex flex-col items-center justify-center">
+    <div className="flex flex-1 max-sm:items-center flex-col-reverse sm:flex-row sm:w-screen sm:h-screen sm:max-h-screen sm:overflow-hidden">
+      <ItemList
+        className="sm:flex-1 sm:p-4 max-sm:mx-2 w-11/12"
+        onItemClick={handleRemainingItemClick}
+        description="Remaining" items={remainingItems}
+      />
+      <div className="mt-10 mb-4 sm:m-0 flex-2 p-4 text-center flex flex-col items-center justify-center">
         <Button
           onClick={handlePick}
           className={clsx(
@@ -59,7 +63,12 @@ export default function Pick({ document }: PickProps) {
           {pickedItems.length > 0 ? lastPickedItem.name : "No item picked yet"}
         </span>
       </div>
-      <ItemList onItemClick={handlePickedItemClick} description="Chosen" items={pickedItems} />
+      <ItemList
+        className="max-sm:absolute max-sm:mx-2 w-11/12 top-[63%] sm:w-screen sm:flex-1 sm:p-4"
+        onItemClick={handlePickedItemClick}
+        description="Chosen"
+        items={pickedItems}
+      />
     </div>
   )
 }
